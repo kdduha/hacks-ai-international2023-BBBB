@@ -1,0 +1,6 @@
+flask==3.0.0
+numpy==1.26.2
+pyaspeller==2.0.0
+torch==2.1.1
+transformers==4.35.2
+uvicorn==0.23.2
