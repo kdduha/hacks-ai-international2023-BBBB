@@ -39,7 +39,7 @@ ___
   - во втором случае дообучили такую же модель `ai-forever/rugpt3small_based_on_gpt2`, но в качестве данных подавали конкатенированные строки вида `'<общая тема>: <обращение>'`
   - в итоговом пайплайне сначала по обращению предсказываем общую тему, а потом по этому классу и обращению с помощью второй модели предсказываем узкую тему
   - в первом и во втором пункте попробовали сделать то же самое, но с BERT-моделью `cointegrated/rubert-tiny2` *(ее не включили в MVP)*
-  - модели сохранены в папке [`models`](https://drive.google.com/drive/folders/1k9gxIuB-eFLvLA1ISsqFlCT8uXwzl2VU?usp=sharing) в формате `modelname_modeltask_f1score` *(`pt` расширение или папка с сэйвпоинтами)*
+  - модели сохранены в папке [`models`](https://drive.google.com/drive/folders/1k9gxIuB-eFLvLA1ISsqFlCT8uXwzl2VU?usp=sharing) в формате `modelname_modeltask_f1valscore` *(`pt` расширение или папка с сэйвпоинтами)*
   <p> </p>
 
 - выделение NER
