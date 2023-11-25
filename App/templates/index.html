@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Official Governmental Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+
+        body {
+            background-color: #E4E7DD; /* Replace with your RGB values */
+            color: #b22222;
+        }
+        .non-editable {
+            height: auto;
+            background-color: #fff;
+            color: #333333;
+            border: 1px solid #b22222;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #b22222;
+            padding: 10px;
+            margin-bottom: 10px;
+            height: auto; /* Adjusted for height constraint */
+            overflow-y: auto;
+            border-radius: 10px;
+        }
+        .submit-btn {
+            background-color: #b22222;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            display: block;
+            width: 100%; /* Wider button */
+            margin-top: 10px;
+            margin-left: 0px ; /* Centering the butt®on */
+            border-radius: 10px;
+        }
+        select {
+            color: #333333;
+            background-color: #fff;
+            border: 1px solid #b22222;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 0px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .left-column {
+            grid-column: 1 / 2;
+        }
+        .right-column {
+            margin-top: 142px;
+            grid-column: 2 / 3;
+        }
+        .proba {
+            color: #b22222;
+            margin-bottom: 5px;
+        }
+        .prediction{
+            padding: 0px;
+        }
+        li{
+            margin-bottom:3px ;
+            color: #333333;
+        }
+        h3{
+            margin-bottom:3px ;
+            color: #333333;
+        }
+        ul{
+            color: #333333;
+        }
+        h2{
+            color: #333333;
+        }
+        .red{
+            color: #b22222;
+        }
+        .info{
+            color:#333333;
+            margin-bottom: 0;
+            margin-top: 5px;
+
+        }
+        nav.container-fluid{
+            background-color: #ffffff;
+            border-bottom: 1px solid #b22222;
+        }
+        .background-image {
+            position: absolute; /* or 'fixed' depending on your requirement */
+            top: -550px;
+            right:-30px;
+            width: 50%;
+            max-height: 30%;
+
+            z-index: 0; /* This sends the image to the back */
+        }
+
+        .background-image img {
+            /*width: 100%;*/
+            /*height: 100%;*/
+            object-fit: cover; /* This ensures the image covers the div */
+        }
+        .content{
+            position: relative;
+            z-index: 1;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="background-image"><img src="{{ url_for('static', filename='images/img.png' )}}"></div>
+    <div class="content">
+    <nav class="container-fluid">
+        <ul>
+<!--            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="height: 50px; width: auto; margin-right: 10px;">-->
+            <strong>о<span class="red">ББББ</span>ращения</strong>
+        </ul>
+
+    </nav>
+    <main class="container">
+        <form action="/change-page" method="post">
+        <div class="grid">
+            <div class="left-column">
+                <section>
+                    <hgroup>
+                        <h2>о<span class="red">ББББ</span>ращения</h2>
+                        <h3>Проверьте группы тем и темы. Выберите исполнителя.</h3>
+                    </hgroup>
+                    <p class="info"><strong>Текст обращения</strong></p>
+                    <p class="non-editable" contenteditable="false">{{entries[page].text}}</p>
+                    <p class="info"><strong>Выжимка</strong></p>
+                    <p class="non-editable" contenteditable="false">{{summary}}</p>
+                    <p class="info"><strong>Группа тем</strong></p>
+                    <div class="prediction">
+                        <select name = "themeGroup" id = "themeGroup">
+                            {% for themeGroup in themeGroups %}
+                            <option value="{{ option }}" {% if themeGroup == defaultThemeGroup %}selected{% endif %}>{{ themeGroup }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="proba">Уверенность в классе: <strong>{{themGroupProba}}</strong></p>
+                    </div>
+                    <p class="info"><b>Тема</b></p>
+                    <div class="prediction">
+                        <select name = "theme" id = "theme">
+                            {% for theme in themes %}
+                            <option value="{{ option }}" {% if theme == defaultTheme %}selected{% endif %}>{{ theme }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="proba">Уверенность в классе: <strong>{{themeProba}}</strong></p>
+                    </div>
+                    <p class="info"><strong>Исполнитель</strong></p>
+                    <select name="executors" id="executors">
+                        {% for key, value in dropdown_options.items() %}
+                        <option value="{{ key }}">{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="submit-btn"  id="target-element" type="submit" name="buttonClicked" value="true">Отправить</button>
+                </section>
+            </div>
+            <div class="right-column">
+                {% if ner_dict['FACILITY']|length > 0 %}
+                <div class="card">
+                    <h3>Адреса</h3>
+                    <ul>
+                        {% for i in ner_dict['FACILITY'] %}
+                        <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if ner_dict['ORGANIZATION']|length > 0 %}
+                <div class="card">
+                    <h3>Организации</h3>
+                    <ul>
+                        {% for i in ner_dict['ORGANIZATION'] %}
+                        <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if ner_dict['NUMBER']|length > 0 %}
+                <div class="card">
+                    <h3>Номера телефонов</h3>
+                    <ul>
+                        {% for i in ner_dict['NUMBER'] %}
+                        <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if ner_dict['DATE']|length > 0 %}
+                <div class="card">
+                    <h3>Даты</h3>
+                    <ul>
+                        {% for i in ner_dict['DATE'] %}
+                        <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        </form>
+    </main>
+    <footer class="container">
+        <small>
+            <a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a>
+        </small>
+    </footer>
+    </div>
+<script src="script.js"></script>
+</body>
+</html>
