@@ -61,7 +61,7 @@ ___
     - docker-файл лежит в папке
 
 **Contributors**: 
-- Кузнецов Андрей: [github](https://github.com/kdduha), [telegram](t.me/kdduha)
-- Горячев Александр: [github](https://github.com/JesusChristOurGod), [telegram](t.me/goryachev_alexander)
-- Сеничев Сергей: [github](https://github.com/ssenichev), [telegram](t.me/seniichev)
-- Привалов Кирилл: [github](https://github.com/hellkirl), [telegram](t.me/hellkirl)
+- Кузнецов Андрей: [github](https://github.com/kdduha), [telegram](https://t.me/kdduha)
+- Горячев Александр: [github](https://github.com/JesusChristOurGod), [telegram](https://t.me/goryachev_alexander)
+- Сеничев Сергей: [github](https://github.com/ssenichev), [telegram](https://t.me/seniichev)
+- Привалов Кирилл: [github](https://github.com/hellkirl), [telegram](https://t.me/hellkirl)
